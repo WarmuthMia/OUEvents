@@ -1,0 +1,11 @@
+To start you will need to clone this repository:  https://github.com/WarmuthMia/OUEvents
+
+What is what? 
+app.py --> The actual code for the application
+static --> all extra files such as css, images, etc.
+templates --> holds html file(s)
+venv --> holds all the libraries we are using for our application (mostly flask) 
+
+Extra Info
+-please don't change the folder names, they are called that so it works seamlessly with Flask. 
+-I left brief comments explaining my code, but if you have any questions please let me know as they're not very detailed.
