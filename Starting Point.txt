@@ -1,9 +1,10 @@
-To start you will need to clone this repository:  https://github.com/WarmuthMia/OUEvents
+-To start you will need to clone this repository:  https://github.com/WarmuthMia/OUEvents
+-If you are using VS Code, you will need the Live Server extension installed. This will allow you to run your html file on your default browser. (The one by Ritwick Dey is what I use) 
 
 What is what? 
-app.py --> The actual code for the application
+app.py --> The actual starting python code for the application
 static --> all extra files such as css, images, etc.
-templates --> holds html file(s)
+templates --> html file(s)
 venv --> holds all the libraries we are using for our application (mostly flask) 
 
 Extra Info
