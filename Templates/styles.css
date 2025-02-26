@@ -8,7 +8,7 @@ body {
 }
 
 header {
-    background-color: #8b0000; /* Crimson header */
+    background-color: #841617; /* Crimson header */
     color: #fff; /* White text */
     padding: 20px;
     text-align: center;
@@ -39,7 +39,7 @@ header {
 #search-button {
     padding: 10px 20px;
     background-color: #fff; /* White button */
-    color: #8b0000; /* Crimson text */
+    color: #841617; /* Crimson text */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -61,7 +61,7 @@ header {
     .filters h2 {
         margin-top: 0;
         font-size: 1.5rem;
-        color: #8b0000; /* Crimson text */
+        color: #841617; /* Crimson text */
     }
 
 .filter-options {
@@ -103,7 +103,7 @@ header {
     .event-info h2 {
         margin-top: 0;
         font-size: 1.5rem;
-        color: #8b0000; /* Crimson text */
+        color: #841617; /* Crimson text */
     }
 
 .event-card {
@@ -136,7 +136,7 @@ header {
     .event-details h3 {
         margin: 0;
         font-size: 1.25rem;
-        color: #8b0000; /* Crimson text */
+        color: #841617; /* Crimson text */
     }
 
     .event-details p {
@@ -148,7 +148,7 @@ header {
 .event-category {
     display: inline-block;
     padding: 5px 10px;
-    background-color: #8b0000; /* Crimson background */
+    background-color: #841617; /* Crimson background */
     color: #fff; /* White text */
     border-radius: 15px; /* Rounded corners */
     font-size: 0.8rem;
@@ -179,7 +179,7 @@ header {
     .add-event-form h2 {
         margin-top: 0;
         font-size: 1.5rem;
-        color: #8b0000;
+        color: #841617;
     }
 
     .add-event-form label {
@@ -201,7 +201,7 @@ header {
     .add-event-form button {
         margin-top: 15px;
         padding: 10px 20px;
-        background-color: #8b0000;
+        background-color: #841617;
         color: #fff;
         border: none;
         border-radius: 5px;
@@ -210,5 +210,5 @@ header {
     }
 
         .add-event-form button:hover {
-            background-color: #700000;
+            background-color: #841617;
         }
