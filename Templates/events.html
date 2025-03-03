@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OU Campus Events</title>
+    <title>Events</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -15,9 +14,8 @@
             <input type="text" id="search-bar" placeholder="Search events...">
             <button id="search-button">Search</button>
         </div>
-        <!-- Navigation Links -->
         <nav>
-            <a href="events.html" class="nav-button">Events Only</a>
+            <a href="index.html" class="nav-button">Main Page</a>
             <a href="map.html" class="nav-button">Map Only</a>
         </nav>
     </header>
@@ -39,17 +37,11 @@
             </div>
         </section>
 
-        <div class="content-container">
-            <!-- Events Section (Left) -->
-            <div class="event-info">
-                <h2>Event Details</h2>
-                <div id="event-cards-container">
-                    <!-- Event cards will be dynamically added here -->
-                </div>
+        <div class="event-info">
+            <h2>Event Details</h2>
+            <div id="event-cards-container">
+                <!-- Event cards will be dynamically added here -->
             </div>
-
-            <!-- Map Section (Right) -->
-            <div id="map"></div>
         </div>
 
         <!-- Form to add new events -->
@@ -81,8 +73,6 @@
         </section>
     </main>
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <!-- External JavaScript File -->
     <script src="script.js"></script>
 </body>

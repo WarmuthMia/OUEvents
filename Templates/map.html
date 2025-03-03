@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Event Map</h1>
+        <nav>
+            <a href="index.html" class="nav-button">Main Page</a>
+            <a href="events.html" class="nav-button">Events Only</a>
+        </nav>
+    </header>
+
+    <main>
+        <div id="map"></div>
+        <div id="event-details">
+            <!-- Event details will be dynamically added here -->
+        </div>
+    </main>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- External JavaScript File -->
+    <script src="map-script.js"></script>
+</body>
+</html>

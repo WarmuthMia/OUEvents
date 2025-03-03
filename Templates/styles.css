@@ -212,3 +212,71 @@ header {
         .add-event-form button:hover {
             background-color: #841617;
         }
+/* Navigation Buttons */
+nav {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    background-color: #841617; /* Crimson background */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+    .nav-button:hover {
+        background-color: #6a1213; /* Darker crimson on hover */
+    }
+
+/* Event Details Section (Map Page) */
+#event-details {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff; /* White background */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+    #event-details h2 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        color: #841617; /* Crimson text */
+    }
+
+    #event-details p {
+        margin: 5px 0;
+        font-size: 0.9rem;
+        color: #555; /* Dark gray text */
+    }
+/* Navigation Buttons */
+nav {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    background-color: #841617; /* Crimson background */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+    .nav-button:hover {
+        background-color: #6a1213; /* Darker crimson on hover */
+    }
