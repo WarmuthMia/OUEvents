@@ -60,7 +60,7 @@ function renderEventCards(events) {
         eventCard.setAttribute('data-category', event.category);
 
         eventCard.innerHTML = `
-            <img src="https://via.placeholder.com/150" alt="Event Poster" class="event-poster">
+            <img src="${event.poster || 'https://via.placeholder.com/150'}" alt="Event Poster" class="event-poster">
             <div class="event-details">
                 <h3>${event.name}</h3>
                 <p><strong>Host:</strong> ${event.host}</p>
@@ -119,25 +119,51 @@ document.getElementById('add-event-form').addEventListener('submit', function (e
     const eventTime = document.getElementById('event-time').value;
     const eventLocation = document.getElementById('event-location').value;
     const eventCategory = document.getElementById('event-category').value;
+    const posterFile = document.getElementById('event-poster').files[0];
 
-    // Geocode the address
-    geocodeAddress(eventLocation, (coordinates) => {
-        // Create new event object
-        const newEvent = {
-            name: eventName,
-            host: eventHost,
-            time: eventTime,
-            location: eventLocation,
-            category: eventCategory,
-            coordinates: coordinates
+    // Convert the poster image to a Base64 string
+    if (posterFile) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const posterBase64 = e.target.result;
+
+            // Geocode the address
+            geocodeAddress(eventLocation, (coordinates) => {
+                // Create new event object
+                const newEvent = {
+                    name: eventName,
+                    host: eventHost,
+                    time: eventTime,
+                    location: eventLocation,
+                    category: eventCategory,
+                    coordinates: coordinates,
+                    poster: posterBase64 // Add the Base64 poster image
+                };
+
+                // Add the event to localStorage
+                addEvent(newEvent);
+
+                // Reset the form
+                e.target.reset();
+            });
         };
-
-        // Add the event to localStorage
-        addEvent(newEvent);
-
-        // Reset the form
-        e.target.reset();
-    });
+        reader.readAsDataURL(posterFile);
+    } else {
+        // If no poster is uploaded, proceed without it
+        geocodeAddress(eventLocation, (coordinates) => {
+            const newEvent = {
+                name: eventName,
+                host: eventHost,
+                time: eventTime,
+                location: eventLocation,
+                category: eventCategory,
+                coordinates: coordinates,
+                poster: null // No poster
+            };
+            addEvent(newEvent);
+            e.target.reset();
+        });
+    }
 });
 
 // Initialize the map
