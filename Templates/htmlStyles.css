@@ -142,8 +142,9 @@ header h1 {
 .event-card p {
     margin: 5px 0;
     font-size: 0.9rem;
-    color: black; 
-}
+    font-weight: bold; 
+    color: rgb(107, 107, 107);
+}   
 
 /* Map Section (Right) */
 #map {
