@@ -1,11 +1,10 @@
 ﻿<!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="htmlStyles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -13,8 +12,9 @@
     <header>
         <h1>Event Map</h1>
         <nav>
-            <a href="index.html" class="nav-button">Main Page</a>
+            <a href="HTMLPage1.html" class="nav-button">Home Page</a>
             <a href="events.html" class="nav-button">Events Only</a>
+            <a href="user.html" class="nav-button">User Profile</a>
         </nav>
     </header>
 
@@ -29,5 +29,60 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <!-- External JavaScript File -->
     <script src="map-script.js"></script>
+    <script>
+        var map;
+
+        function initializeMap() {
+            if (map) {
+                map.remove();
+            }
+            map = L.map('map').setView([35.207, -97.445], 15); // Coordinates for OU
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+        }
+
+        // Geocode an address to get latitude and longitude
+        function geocodeAddress(address, callback) {
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        const { lat, lon } = data[0];
+                        callback(null, { lat: parseFloat(lat), lon: parseFloat(lon) });
+                    } else {
+                        callback('Address not found');
+                    }
+                })
+                .catch(error => callback(error));
+        }
+
+        // Fetch events from the backend and add markers to the map
+        function fetchEvents() {
+            fetch('http://localhost:5000/events')
+                .then(response => response.json())
+                .then(data => {
+                    data.events.forEach(event => {
+                        // Geocode the event location and add a marker to the map
+                        geocodeAddress(event.location, (error, coords) => {
+                            if (!error) {
+                                L.marker([coords.lat, coords.lon]).addTo(map)
+                                    .bindPopup(`<b>${event.name}</b><br>${event.location}`);
+                            } else {
+                                console.error('Geocoding error:', error);
+                            }
+                        });
+                    });
+                })
+                .catch(error => console.error('Error fetching events:', error));
+        }
+
+        // Initialize the map on page load
+        initializeMap();
+        // Fetch events on page load
+        fetchEvents();
+    </script>
 </body>
 </html>

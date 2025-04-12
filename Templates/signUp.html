@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles3.css">
+    <link rel="stylesheet" href="signUpStyles.css">
     <title>Sign Up</title>
 </head>
 <body>
     <div class="signup-container">
         <h2>Sign Up for OU Events</h2>
-        <form id="signupForm" onsubmit="return validateAndRedirect();">
+        <form id="signupForm">
             <label for="ou-email">OU Email:</label>
             <input type="email" id="ou-email" name="ou-email" required>
             <br>
@@ -23,11 +23,15 @@
             <input type="password" id="confirm-password" name="confirm-password" required>
             <br>
             <button type="submit">Sign Up</button>
+            <button class="backtologinButt" onclick="window.location.href='index.html'">Back to Login</button>
         </form>
     </div>
     <script>
-        function validateAndRedirect() {
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
             var email = document.getElementById('ou-email').value;
+            var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
             var confirmPassword = document.getElementById('confirm-password').value;
 
@@ -41,10 +45,25 @@
                 return false;
             }
 
-            // Redirect to the index page if all validations pass
-            window.location.href = 'index.html';
-            return false; // Prevent the actual form submission
-        }
+            // Send AJAX request to Python script
+            fetch('http://localhost:5000/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username, password: password, email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('You are now signed up for OU Events! Login now.');
+                    window.location.href = 'index.html'; // Redirect to login page
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
     </script>
 </body>
 </html>

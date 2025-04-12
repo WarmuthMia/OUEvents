@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="htmlStyles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <h1>OU Campus Events</h1>
         <div class="search-container">
-            <input type="text" id="search-bar" placeholder="Search events...">
             <button id="search-button">Search</button>
         </div>
         <nav>
-            <a href="index.html" class="nav-button">Main Page</a>
+            <a href="HTMLPage1.html" class="nav-button">Home Page</a>
             <a href="map.html" class="nav-button">Map Only</a>
         </nav>
     </header>
@@ -47,26 +46,29 @@
         <!-- Form to add new events -->
         <section class="add-event-form">
             <h2>Add New Event</h2>
-            <form id="add-event-form">
+            <form id="add-event-form" action="/add_event" method="POST" enctype="multipart/form-data">
                 <label for="event-name">Event Name:</label>
-                <input type="text" id="event-name" required>
+                <input type="text" id="event-name" name="name" required>
 
                 <label for="event-host">Host:</label>
-                <input type="text" id="event-host" required>
+                <input type="text" id="event-host" name="host" required>
 
                 <label for="event-time">Time:</label>
-                <input type="datetime-local" id="event-time" required>
+                <input type="datetime-local" id="event-time" name="time" required>
 
                 <label for="event-location">Location:</label>
-                <input type="text" id="event-location" placeholder="Enter a street address" required>
+                <input type="text" id="event-location" name="location" required>
 
                 <label for="event-category">Category:</label>
-                <select id="event-category" required>
+                <select id="event-category" name="category" required>
                     <option value="music">Music</option>
                     <option value="sports">Sports</option>
                     <option value="art">Art</option>
                     <option value="food">Food</option>
                 </select>
+
+                <label for="event-image">Image:</label>
+                <input type="file" id="event-image" name="image"><br>
 
                 <button type="submit">Add Event</button>
             </form>
@@ -74,6 +76,56 @@
     </main>
 
     <!-- External JavaScript File -->
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('add-event-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var formData = new FormData(this);
+
+            // Send AJAX request to Python script
+            fetch('http://localhost:5000/add_event', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Event added successfully!');
+                    fetchEvents(); // Refresh the events list
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Fetch and display events
+        function fetchEvents() {
+            fetch('http://localhost:5000/events')
+                .then(response => response.json())
+                .then(data => {
+                    const eventCardsContainer = document.getElementById('event-cards-container');
+                    eventCardsContainer.innerHTML = ''; // Clear existing events
+
+                    data.events.forEach(event => {
+                        const eventCard = document.createElement('div');
+                        eventCard.className = 'event-card';
+                        eventCard.innerHTML = `
+                            <h3>${event.name}</h3>
+                            <p>Host: ${event.host}</p>
+                            <p>Time: ${event.time}</p>
+                            <p>Location: ${event.location}</p>
+                            <p>Category: ${event.category}</p>
+                            ${event.image ? `<img src="${event.image}" alt="${event.name}">` : ''}
+                        `;
+                        eventCardsContainer.appendChild(eventCard);
+                    });
+                })
+                .catch(error => console.error('Error fetching events:', error));
+        }
+
+        // Fetch events on page load
+        fetchEvents();
+    </script>
 </body>
 </html>

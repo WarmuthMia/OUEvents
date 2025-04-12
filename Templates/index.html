@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="indexStyles.css">
     <title>OU Campus Events</title>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -13,9 +13,10 @@
         <h1>Welcome to OU Events!</h1>
     </header>
     <section class="description">
-        <p>OU Events provides a quick and easy all-in-one place for all current and upcoming events provided by OU and its affiliates. 
+        <p>
+          A quick and easy all-in-one place for all current and upcoming events provided by OU and its affiliates. 
         </p>
-        <p>Your Campus, Your Events</p>
+        <p class="slogan"> Your Campus, Your Events</p>
     </section>
     <main>
         <section class="login-form">
@@ -24,49 +25,99 @@
                 <label for="username">Username:</label>
                 <input class="userText" type="text" id="username" name="username" required>
                 <br>
-                <label for="password">Password:</label>
+                <label for="password">Password:   </label>
                 <input class="passText" type="password" id="password" name="password" required>
                 <br>
                 <button type="submit" class="loginButt">Login</button>
             </form>
-            <button class="signUpButt" onclick="window.open('signUp.html', '_blank')">Sign Up Here!</button>
+            <button class="signUpButt" onclick="window.location.href='signUp.html'">Sign Up Here!</button>
         </section>
         <div id="map"></div>
     </main>
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Initialize the map
-        var map = L.map('map').setView([35.207, -97.445], 15); // Coordinates for OU
+        var map;
 
-        // Add OpenStreetMap tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        function initializeMap() {
+            if (map) {
+                map.remove();
+            }
+            map = L.map('map').setView([35.207, -97.445], 15); // Coordinates for OU
 
-        // Example marker for current events
-        var currentEvents = [
-            {lat: 35.207, lng: -97.445, description: 'Event 1'},
-            {lat: 35.208, lng: -97.446, description: 'Event 2'}
-        ];
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+        }
 
-        currentEvents.forEach(function(event) {
-            L.marker([event.lat, event.lng]).addTo(map)
-                .bindPopup(event.description)
-                .openPopup();
-        });
+        // Geocode an address to get latitude and longitude
+        function geocodeAddress(address, callback) {
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        const { lat, lon } = data[0];
+                        callback(null, { lat: parseFloat(lat), lon: parseFloat(lon) });
+                    } else {
+                        callback('Address not found');
+                    }
+                })
+                .catch(error => callback(error));
+        }
+
+        // Fetch events from the backend and add markers to the map
+        function fetchEvents() {
+            fetch('http://localhost:5000/events')
+                .then(response => response.json())
+                .then(data => {
+                    data.events.forEach(event => {
+                        // Geocode the event location and add a marker to the map
+                        geocodeAddress(event.location, (error, coords) => {
+                            if (!error) {
+                                L.marker([coords.lat, coords.lon]).addTo(map)
+                                    .bindPopup(`<b>${event.name}</b><br>${event.location}`);
+                            } else {
+                                console.error('Geocoding error:', error);
+                            }
+                        });
+                    });
+                })
+                .catch(error => console.error('Error fetching events:', error));
+        }
+
+        // Initialize the map on page load
+        initializeMap();
+        // Fetch events on page load
+        fetchEvents();
 
         // Form validation and submission
         document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
 
             if (username === '' || password === '') {
                 alert('Please fill out both fields.');
-                event.preventDefault(); // Prevent form submission
             } else {
-                event.preventDefault(); // Prevent the default form submission
-                window.location.href = 'HTMLPage1.html'; // Redirect to HTMLPage1.html
+                // Send AJAX request to Python script
+                fetch('http://localhost:5000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username: username, password: password })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = 'HTMLPage1.html'; // Redirect to HTMLPage1.html
+                    } else {
+                        alert('Invalid credentials. Please try again.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
             }
         });
     </script>
