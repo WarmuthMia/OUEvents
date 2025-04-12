@@ -1,0 +1,236 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Light gray background */
+    color: #333; /* Dark gray text */
+}
+
+header {
+    background-color: #841617; /* Crimson header */
+    color: #fff; /* White text */
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+header h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+.search-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#search-bar {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#search-button {
+    padding: 10px 20px;
+    background-color: #fff; /* White button */
+    color: #841617; /* Crimson text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#search-button:hover {
+    background-color: grey; /* Light cream on hover */
+    font-weight: bold;
+}
+
+.filters {
+    padding: 10px;
+    margin: 20px;
+    background-color: #fff; /* White background */
+    border-bottom: 1px solid #ddd; /* Light gray border */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.filters h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #841617; /* Crimson text */
+}
+
+.filter-options {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-options label {
+    font-weight: 500;
+}
+
+.filter-options select,
+.filter-options input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Content Container */
+.content-container {
+    display: flex;
+    margin: 20px;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Events Section (Left) */
+.event-info {
+    flex: 1;
+    background-color: #fff; /* White background */
+    padding: 20px;
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 90%; /* Limit the width of the events section */
+    color: #841617;
+    margin: 20px;
+    align-items: center;
+}
+
+.event-info h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #841617; /* Crimson text */
+    text-transform: uppercase;
+}
+
+.event-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.event-card:hover, .event-card:focus {
+    transform: scale(1.05);
+}
+
+.event-card .details {
+    display: none;
+}
+
+.event-card:hover .details, .event-card:focus .details {
+    display: block;
+}
+
+.event-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #841617; /* Crimson text */
+}
+
+.event-card p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    font-weight: bold; 
+    color: rgb(107, 107, 107);
+}   
+
+/* Add Event Form */
+.add-event-form {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-event-form h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #841617;
+}
+
+.add-event-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.add-event-form input,
+.add-event-form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.add-event-form button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #841617;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.add-event-form button:hover {
+    background-color: #6a1213; /* Darker crimson on hover */
+}
+
+/* Navigation Buttons */
+nav {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    background-color: #841617; /* Crimson background */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #6a1213; /* Darker crimson on hover */
+    font-weight: bold;
+}
+
+.log-butt {
+    padding: 10px 20px;
+    background-color: white; /* Crimson background */
+    color: #841617; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.log-butt:hover {
+    background-color: grey; /* Darker crimson on hover */
+    color: white;
+}
