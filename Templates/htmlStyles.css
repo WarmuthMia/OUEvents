@@ -47,7 +47,8 @@ header h1 {
 }
 
 #search-button:hover {
-    background-color: #e0d5c0; /* Light cream on hover */
+    background-color: grey; /* Light cream on hover */
+    font-weight: bold;
 }
 
 #LogOut {
@@ -222,6 +223,24 @@ nav {
 
 .nav-button:hover {
     background-color: #6a1213; /* Darker crimson on hover */
+    font-weight: bold;
+}
+
+.log-butt {
+    padding: 10px 20px;
+    background-color: white; /* Crimson background */
+    color: #841617; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.log-butt:hover {
+    background-color: grey; /* Darker crimson on hover */
+    color: white;
 }
 
 /* Event Details Section (Map Page) */

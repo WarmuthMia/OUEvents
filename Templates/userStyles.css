@@ -1,17 +1,56 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f8f9fa; /* Light gray background */
+    color: #333; /* Dark gray text */
 }
 
-h1, h2 {
-    color: #333;
+header {
+    background-color: #841617; /* Crimson header */
+    color: #fff; /* White text */
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-form {
-    margin: 20px 0;
+header h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 2.5rem;
 }
+
+.search-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#search-bar {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#search-button {
+    padding: 10px 20px;
+    background-color: #fff; /* White button */
+    color: #841617; /* Crimson text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#search-button:hover {
+    background-color: grey; /* Light cream on hover */
+    font-weight: bold;
+}
+
 
 input[type="text"], input[type="password"], input[type="email"], input[type="date"], input[type="time"], textarea {
     width: 100%;
@@ -110,6 +149,14 @@ followingList li, #creatorsList li, #userEvents li {
     border-radius: 4px;
 }
 
+/* Navigation Buttons */
+nav {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 .nav-button {
     padding: 10px 20px;
     background-color: #841617; /* Crimson background */
@@ -124,4 +171,22 @@ followingList li, #creatorsList li, #userEvents li {
 
 .nav-button:hover {
     background-color: #6a1213; /* Darker crimson on hover */
+    font-weight: bold;
+}
+
+.log-butt {
+    padding: 10px 20px;
+    background-color: white; /* Crimson background */
+    color: #841617; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.log-butt:hover {
+    background-color: grey; /* Darker crimson on hover */
+    color: white;
 }
