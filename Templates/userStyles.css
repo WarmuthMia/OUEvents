@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa; /* Light gray background */
+    background-color: lightgrey; /* Light gray background */
     color: #333; /* Dark gray text */
 }
 

@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h1>OU Campus Events</h1>
+        <h1>Event Details</h1>
         <div class="search-container">
             <input type="text" id="search-bar" placeholder="Search events...">
             <button id="search-button">Search</button>
@@ -17,6 +17,7 @@
         <nav>
             <a href="HTMLPage1.html" class="nav-button">Home Page</a>
             <a href="map.html" class="nav-button">Map Only</a>
+            <a href="user.html" class="nav-button">User Profile</a>
             <a href="index.html" class="log-butt">LogOut</a>
         </nav>
     </header>
@@ -39,7 +40,6 @@
         </section>
 
         <div class="event-info">
-            <h2>Event Details</h2>
             <div id="event-cards-container">
                 <!-- Event cards will be dynamically added here -->
             </div>
@@ -113,13 +113,26 @@
                         const eventCard = document.createElement('div');
                         eventCard.className = 'event-card';
                         eventCard.innerHTML = `
-                            <h3>${event.name}</h3>
-                            <p>Host: ${event.host}</p>
-                            <p>Time: ${event.time}</p>
-                            <p>Location: ${event.location}</p>
-                            <p>Category: ${event.category}</p>
-                            ${event.image ? `<img src="${event.image}" alt="${event.name}">` : ''}
-                        `;
+                            <div class="event-name">
+                                <h3>${event.name}</h3>
+                            </div>
+                            <div class="event-details">
+                                <p>Host: <span class="value">${event.host}</span></p>
+                                <p>Time: <span class="value">${event.time}</span></p>
+                                <p>Location: <span class="value">${event.location}</span></p>
+                                <p>Category: <span class="value">${event.category}</span></p>
+                                ${event.image ? `<img src="${event.image}" alt="${event.name}" style="max-width: 100%;">` : ''}
+                                <button class="go-to-event-butt">Go To Event</button>
+                            </div>
+                        `;              
+
+                            const goToEventButton = eventCard.querySelector('.go-to-event-butt');
+                            goToEventButton.addEventListener('click', () => {
+                                localStorage.setItem('selectedEventName', event.name);
+                                localStorage.setItem('selectedEventLocation', event.location);
+                                window.location.href = 'map.html';
+                        });
+
                         eventCardsContainer.appendChild(eventCard);
                     });
                 })

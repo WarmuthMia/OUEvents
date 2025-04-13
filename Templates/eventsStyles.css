@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa; /* Light gray background */
+    background-color: lightgrey; /* Light gray background */
     color: #333; /* Dark gray text */
 }
 
@@ -18,6 +18,17 @@ header h1 {
     margin: 0;
     font-weight: 700;
     font-size: 2.5rem;
+}
+
+/*text with event cards*/
+p {
+    font-weight: bold;
+    color: #841617 /*label color*/
+}
+
+p .value {
+    color: black; /* user input color */
+    font-weight: normal;
 }
 
 .search-container {
@@ -47,7 +58,7 @@ header h1 {
 }
 
 #search-button:hover {
-    background-color: grey; /* Light cream on hover */
+    background-color: grey; 
     font-weight: bold;
 }
 
@@ -111,6 +122,7 @@ header h1 {
     font-size: 1.5rem;
     color: #841617; /* Crimson text */
     text-transform: uppercase;
+    text-align: center;
 }
 
 .event-card {
@@ -123,6 +135,26 @@ header h1 {
 
 .event-card:hover, .event-card:focus {
     transform: scale(1.05);
+}
+
+.event-name {
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.event-name h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #841617;
+    text-transform: uppercase;
+}
+
+.event-details {
+    width: 100%;
+    text-align: left;
 }
 
 .event-card .details {
@@ -138,13 +170,6 @@ header h1 {
     font-size: 1.25rem;
     color: #841617; /* Crimson text */
 }
-
-.event-card p {
-    margin: 5px 0;
-    font-size: 0.9rem;
-    font-weight: bold; 
-    color: rgb(107, 107, 107);
-}   
 
 /* Add Event Form */
 .add-event-form {
@@ -233,4 +258,19 @@ nav {
 .log-butt:hover {
     background-color: grey; /* Darker crimson on hover */
     color: white;
+}
+
+.go-to-event-butt {
+    background-color: #841617;
+    margin-top: 10px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.go-to-event-butt:hover { 
+    background-color: #6a1213;
 }
