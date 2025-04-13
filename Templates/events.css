@@ -1,0 +1,129 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #841617;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.search-container {
+    margin-top: 10px;
+}
+
+#search-bar {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 4px;
+}
+
+#search-button {
+    padding: 10px 20px;
+    background-color: #841617;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#search-button:hover {
+    background-color: #841617;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+.nav-button {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+.nav-button:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filters {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.filter-options {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-options label {
+    font-weight: 500;
+}
+
+.filter-options select, .filter-options input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.event-info {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.event-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.event-card h3 {
+    margin: 0 0 10px;
+}
+
+.poster-upload {
+    margin-top: 10px;
+}
+
+.poster-upload label {
+    font-weight: 500;
+}
+
+.event-poster {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 8px;
+}
