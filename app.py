@@ -214,9 +214,11 @@ class RequestHandler(BaseHTTPRequestHandler):
             time = form.getvalue('time')
             location = form.getvalue('location')
             category = form.getvalue('category')
-            image_file = form['image']
 
-            if image_file.filename:
+            # Check if 'image' is in the form
+            image_file = form['image'] if 'image' in form else None 
+
+            if image_file and hasattr(image_file, 'filename') and image_file.filename:
                 image_path = os.path.join(UPLOAD_DIR, image_file.filename)
                 with open(image_path, 'wb') as f:
                     f.write(image_file.file.read())

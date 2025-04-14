@@ -31,13 +31,46 @@ function saveEvents(events) {
 // Load events from localStorage when the page loads
 window.addEventListener('DOMContentLoaded', loadEvents);
 
-// Function to add a new event and save it to localStorage
-function addEvent(event) {
-    const events = JSON.parse(localStorage.getItem('events')) || [];
-    events.push(event);
-    saveEvents(events);
-    filterEvents(); // Refresh the displayed events
+// Function to add a new event and save it to the database
+function addEvent(eventObj) {
+    const formData = new FormData();
+    formData.append('name', eventObj.name);
+    formData.append('host', eventObj.host);
+    formData.append('time', eventObj.time);
+    formData.append('location', eventObj.location);
+    formData.append('category', eventObj.category);
+    if (eventObj.poster) {
+        // Convert Base64 back to Blob
+        const byteString = atob(eventObj.poster.split(',')[1]);
+        const mimeString = eventObj.poster.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+        formData.append('image', blob, 'poster.png');
+    }
+
+    fetch('http://localhost:5000/add_event', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Event added successfully!');
+            filterEvents(); // Refresh localStorage data
+        } else {
+            alert(data.message || 'Failed to add event.');
+        }
+    })
+    .catch(error => {
+        console.error('Error submitting event to backend:', error);
+        alert('There was a problem submitting the event.');
+    });
 }
+
 
 // Function to render event cards
 function renderEventCards(events) {
@@ -50,7 +83,7 @@ function renderEventCards(events) {
         eventCard.setAttribute('data-category', event.category);
 
         eventCard.innerHTML = `
-            <img src="${event.poster || 'https://via.placeholder.com/150'}" alt="Event Poster" class="event-poster">
+            <img src="${event.poster || 'https://placekitten.com/150/150?text=No+Image'}" alt="Event Poster" class="event-poster">
             <div class="event-details">
                 <h3>${event.name}</h3>
                 <p><strong>Host:</strong> ${event.host}</p>
@@ -69,10 +102,12 @@ function addMarkers(events) {
     markers = []; // Reset the markers array
 
     events.forEach(event => {
-        const marker = L.marker(event.coordinates)
-            .bindPopup(`<b>${event.name}</b><br>${event.location}`)
-            .addTo(map);
-        markers.push(marker); // Add marker to the array
+        if (event.coordinates && event.coordinates.length === 2) {
+            const marker = L.marker(event.coordinates)
+                .bindPopup(`<b>${event.name}</b><br>${event.location}`)
+                .addTo(map);
+            markers.push(marker); // Add marker to the array
+        }
     });
 }
 
@@ -110,6 +145,8 @@ function geocodeAddress(address, callback) {
 document.getElementById('add-event-form').addEventListener('submit', function (e) {
     e.preventDefault(); // Prevent form submission
 
+    const form = e.target; // ← Save the form reference here
+
     // Get form data
     const eventName = document.getElementById('event-name').value;
     const eventHost = document.getElementById('event-host').value;
@@ -118,13 +155,38 @@ document.getElementById('add-event-form').addEventListener('submit', function (e
     const eventCategory = document.getElementById('event-category').value;
     const posterFile = document.getElementById('event-poster').files[0];
 
-    // Convert the poster image to a Base64 string
     if (posterFile) {
         const reader = new FileReader();
         reader.onload = function (e) {
             const posterBase64 = e.target.result;
 
-            // Geocode the address
+            const newEvent = {
+                name: eventName,
+                host: eventHost,
+                time: eventTime,
+                location: eventLocation,
+                category: eventCategory,
+                poster: posterBase64
+            };
+
+            addEvent(newEvent);
+            form.reset(); // form reset here
+            };
+            reader.readAsDataURL(posterFile);
+        } else {
+            const newEvent = {
+                name: eventName,
+                host: eventHost,
+                time: eventTime,
+                location: eventLocation,
+                category: eventCategory,
+                poster: null
+            };      
+
+            addEvent(newEvent);
+            form.reset(); 
+        }
+            /*
             geocodeAddress(eventLocation, (coordinates) => {
                 const newEvent = {
                     name: eventName,
@@ -136,16 +198,12 @@ document.getElementById('add-event-form').addEventListener('submit', function (e
                     poster: posterBase64
                 };
 
-                // Save the event to localStorage
                 addEvent(newEvent);
-
-                // Reset the form
-                e.target.reset();
+                form.reset(); // form reset here
             });
         };
         reader.readAsDataURL(posterFile);
     } else {
-        // Handle case when no poster is uploaded
         geocodeAddress(eventLocation, (coordinates) => {
             const newEvent = {
                 name: eventName,
@@ -158,9 +216,10 @@ document.getElementById('add-event-form').addEventListener('submit', function (e
             };
 
             addEvent(newEvent);
-            e.target.reset();
+            form.reset(); 
         });
     }
+        */
 });
 
 // Initialize the map
