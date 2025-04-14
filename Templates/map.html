@@ -64,24 +64,39 @@
             fetch('http://localhost:5000/events')
                 .then(response => response.json())
                 .then(data => {
+                    const selectedEventName = localStorage.getItem('selectedEventName');
+                    const selectedEventLocation = localStorage.getItem('selectedEventLocation');
+
                     data.events.forEach(event => {
-                        // Geocode the event location and add a marker to the map
                         geocodeAddress(event.location, (error, coords) => {
-                            if (!error) {
-                                L.marker([coords.lat, coords.lon]).addTo(map).bindPopup(`
+                            if (!error && coords && coords.lat && coords.lon) {
+                                const marker = L.marker([coords.lat, coords.lon]).addTo(map);
+
+                                const popupContent = `
                                     <div class="popup-message">
                                         <h3>${event.name}</h3>
                                         <p>${event.location}</p>
                                         <button class="popup-button" onclick="navigateToEvent(${coords.lat}, ${coords.lon})">Get Directions</button>
                                     </div>
-                                `);
+                                `;
+
+                                marker.bindPopup(popupContent);
+
+                                // If this is the selected event from localStorage, open popup and zoom in
+                                if (event.name === selectedEventName && event.location === selectedEventLocation) {
+                                    map.setView([coords.lat, coords.lon], 17);
+                                    marker.openPopup();
+                                    // Clear localStorage so it doesn't persist next time
+                                    localStorage.removeItem('selectedEventName');
+                                    localStorage.removeItem('selectedEventLocation');
+                                }
                             } else {
                                 console.error('Geocoding error:', error);
                             }
                         });
                     });
                 })
-                .catch(error => console.error('Error fetching events:', error));
+            .catch(error => console.error('Error fetching events:', error));
         }
 
         function navigateToEvent(destLat, destLng) {
