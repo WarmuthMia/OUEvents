@@ -24,14 +24,7 @@ function filterEvents() {
     addMarkers(filteredEvents);
 }
 
-// Function to save events to localStorage
-function saveEvents(events) {
-    localStorage.setItem('events', JSON.stringify(events));
-}
-// Load events from localStorage when the page loads
-window.addEventListener('DOMContentLoaded', loadEvents);
 
-// Function to add a new event and save it to the database
 function addEvent(eventObj) {
     const formData = new FormData();
     formData.append('name', eventObj.name);
@@ -111,13 +104,6 @@ function addMarkers(events) {
     });
 }
 
-// Function to load events from localStorage and render them
-function loadEvents() {
-    const events = JSON.parse(localStorage.getItem('events')) || [];
-    renderEventCards(events);
-    addMarkers(events);
-}
-
 // Function to geocode an address using the Nominatim API
 function geocodeAddress(address, callback) {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
@@ -186,40 +172,6 @@ document.getElementById('add-event-form').addEventListener('submit', function (e
             addEvent(newEvent);
             form.reset(); 
         }
-            /*
-            geocodeAddress(eventLocation, (coordinates) => {
-                const newEvent = {
-                    name: eventName,
-                    host: eventHost,
-                    time: eventTime,
-                    location: eventLocation,
-                    category: eventCategory,
-                    coordinates: coordinates,
-                    poster: posterBase64
-                };
-
-                addEvent(newEvent);
-                form.reset(); // form reset here
-            });
-        };
-        reader.readAsDataURL(posterFile);
-    } else {
-        geocodeAddress(eventLocation, (coordinates) => {
-            const newEvent = {
-                name: eventName,
-                host: eventHost,
-                time: eventTime,
-                location: eventLocation,
-                category: eventCategory,
-                coordinates: coordinates,
-                poster: null
-            };
-
-            addEvent(newEvent);
-            form.reset(); 
-        });
-    }
-        */
 });
 
 // Initialize the map
