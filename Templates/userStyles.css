@@ -190,3 +190,7 @@ nav {
     background-color: grey; /* Darker crimson on hover */
     color: white;
 }
+
+#eventlist p { 
+    color: #841617
+}
